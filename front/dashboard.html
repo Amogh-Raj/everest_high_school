@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+
+
+/* Greeting text */
+#greeting {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    color: #053354; /* Dark Blue */
+    background: linear-gradient(90deg, #6094e8, #c5d9f1); /* Blue Gradient */
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Smooth fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+:root{
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+}
+
+       /* General Reset */
+•⁠  ⁠{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Full Page Background */
+body {
+    background: linear-gradient(135deg, #E0F7FA, #90CAF9);
+    color: #1E3A8A;
+}
+
+/* Dashboard Layout */
+.dashboard {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+    margin-bottom: 30px;
+    font-size: 22px;
+    color: #0f161d;
+}
+
+.nav-btn, .logout-btn {
+    width: 90%;
+    background: #e9effa;
+    color: rgb(13, 1, 1);
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.nav-btn:hover, .logout-btn:hover {
+    background: #7894e0;
+    transform: scale(1.08);
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
+header {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 20px;
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+}
+
+header h1 {
+    font-size: 26px;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+header p {
+    font-size: 16px;
+    color: #1E3A8A;
+}
+
+/* Sections */
+.content-section {
+    background: rgba(255, 255, 255, 0.8);
+    width: 80%;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    animation: slideUp 0.8s ease-in-out;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input, button {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+input {
+    background: rgba(235, 245, 255, 0.9); /* Light blue background */
+color: #1E3A8A; /* Deep blue text */
+border: 1px solid #2563EB; /* Bold blue border */
+
+}
+
+input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 1);
+}
+
+/* Button Styling */
+button {
+    background: #217fd6;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #1E3A8A; /* Deep blue background */
+transform: scale(1.05); /* Same scaling effect */
+
+}
+
+/* Announcement & Notice List */
+#announcement-list, #notice-list {
+    margin-top: 20px;
+}
+
+.item {
+    background: rgba(204, 229, 255, 0.8); /* Light blue background */
+padding: 15px;
+margin: 8px 0;
+border-left: 5px solid #2563EB; /* Deep blue border */
+position: relative;
+border-radius: 5px;
+transition: 0.3s ease;
+
+}
+
+.item:hover {
+    background: rgb(20, 135, 229);
+}
+
+/* Delete Button */
+.delete-btn {
+    background: red;
+    color: white;
+    padding: 6px;
+    border: none;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.delete-btn:hover {
+    background: darkred;
+    transform: scale(1.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+    </style>
+</head>
+<body>
+    
+
+    <div class="dashboard">
+        
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div id="greeting">Welcome Admin</div>
+            <button class="nav-btn" onclick="showSection('announcement-section')">Announcements</button>
+            <button class="nav-btn" onclick="showSection('notice-section')">Notices</button>
+<button class="nav-btn" onclick="showSection('admissions-section')">Admissions Info</button>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                 <img src="./images/EHSlogo.png" width="150px" height="150px">
+                 <h1> Everest High School, Bangalore </p></h1>
+            </header>
+
+            <!-- Announcements Section -->
+            <section id="announcement-section" class="content-section">
+                <h2>Add Announcement</h2>
+                <form id="announcement-form">
+                    <input type="text" id="announcement-text" placeholder="Write announcement" required>
+                    <input type="date" id="announcement-start-date" required>
+                    <input type="date" id="announcement-end-date" required>
+                    <button type="submit">Add Announcement</button>
+                </form>
+                <div id="announcement-list"></div>
+            </section>
+
+            <!-- Notices Section -->
+            <section id="notice-section" class="content-section hidden">
+                <h2>Add Notice</h2>
+                <form id="notice-form">
+                    <input type="text" id="notice-text" placeholder="Write notice" required>
+                    <input type="date" id="notice-start-date" required>
+                    <input type="date" id="notice-end-date" required>
+                    <button type="submit">Add Notice</button>
+                </form>
+                <div id="notice-list"></div>
+             </section>
+<section id="admissions-section" class="content-section hidden">
+    <h2>Admissions Information</h2>
+    <table border="1" id="admissions-table">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Grade Applied</th>
+                <th>Parent Name</th>
+                <th>Contact</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="admissions-list">
+            <!-- Data will be inserted here -->
+        </tbody>
+    </table>
+</section>
+
+ 
+        </main>
+    </div>
+
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        loadItems("announcements", "announcement-list");
+        loadItems("notices", "notice-list");
+    });
+
+    // Generic function to load announcements/notices
+    function loadItems(type, listId) {
+        const list = document.getElementById(listId);
+        list.innerHTML = ""; // Clear previous content
+
+        const items = JSON.parse(localStorage.getItem(type)) || [];
+
+        items.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "item";
+            div.innerHTML = `
+                <p>${item.text} (From: ${item.start_date} To: ${item.end_date})</p>
+                <button class="delete-btn" onclick="deleteItem('${type}', ${item.id}, '${listId}')">Delete</button>
+            `;
+            list.appendChild(div);
+        });
+    }
+
+    // Generic function to delete announcements/notices
+   // Updated deleteItem function using JSON
+function deleteItem(type, id, listId) {
+    fetch("../backend/announcements_notices.php", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type, id })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(`Error: ${data.error}`);
+            return;
+        }
+        alert("Deleted successfully!");
+        loadItems(type, listId); // Reload the items after deletion
+    })
+    .catch(error => console.error(`Error deleting ${type}:`, error));
+}
+
+
+    // Add Announcement
+    document.getElementById("announcement-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        addItem("announcements", "announcement-list");
+    });
+
+    // Add Notice
+    document.getElementById("notice-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        addItem("notices", "notice-list");
+    });
+
+    // Generic function to add an announcement/notice
+    function addItem(type, listId) {
+        const text = document.getElementById(`${type}-text`).value;
+        const start_date = document.getElementById(`${type}-start-date`).value;
+        const end_date = document.getElementById(`${type}-end-date`).value;
+
+        if (!text || !start_date || !end_date) {
+            alert("Please fill in all fields!");
+            return;
+        }
+
+        const newItem = { 
+            id: Date.now(),  // Unique ID based on timestamp
+            text, 
+            start_date, 
+            end_date 
+        };
+
+        const items = JSON.parse(localStorage.getItem(type)) || [];
+        items.push(newItem);
+        localStorage.setItem(type, JSON.stringify(items));
+
+        document.getElementById(`${type}-form`).reset();
+        loadItems(type, listId);
+    }
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const greeting = document.getElementById("greeting");
+        const hours = new Date().getHours();
+        greeting.innerText =
+            hours < 12 ? "Good Morning, Admin!" :
+            hours < 18 ? "Good Afternoon, Admin!" :
+            "Good Evening, Admin!";
+
+        loadItems("announcements", "announcement-list", "/announcements");
+        loadItems("notices", "notice-list", "/notices");
+    });
+document.addEventListener("DOMContentLoaded", function () {
+    loadItems("announcements", "announcement-list");
+    loadItems("notices", "notice-list");
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    loadItems("announcements", "announcement-list");
+    loadItems("notices", "notice-list");
+});
+
+// ✅ Correctly fetches data from MySQL
+function loadItems(type, listId) {
+    fetch(`../backend/announcements_notices.php?type=${type}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(`Loaded ${type}:`, data); // Debugging
+
+            const list = document.getElementById(listId);
+            list.innerHTML = ""; // Clear old data
+
+            if (data.error) {
+                list.innerHTML = `<p style="color:red;">${data.error}</p>`;
+                return;
+            }
+
+            if (!Array.isArray(data) || data.length === 0) {
+                list.innerHTML = "<p>No items found.</p>";
+                return;
+            }
+
+            data.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "item";
+                div.innerHTML = `
+                    <p>${item.text} (From: ${item.start_date} To: ${item.end_date})</p>
+                    <button class="delete-btn" onclick="deleteItem('${type}', ${item.id}, '${listId}')">Delete</button>
+                `;
+                list.appendChild(div);
+            });
+        })
+        .catch(error => console.error(`Error loading ${type}:`, error));
+}
+
+
+
+
+// ✅ Fix addItem() to correctly get form values
+function addItem(type, listId) {
+    // Fix incorrect IDs
+    const prefix = type === "announcements" ? "announcement" : "notice";
+
+    const textInput = document.getElementById(`${prefix}-text`);
+    const startDateInput = document.getElementById(`${prefix}-start-date`);
+    const endDateInput = document.getElementById(`${prefix}-end-date`);
+
+    if (!textInput || !startDateInput || !endDateInput) {
+        console.error(`Error: Missing input fields for type "${type}"`);
+        alert(`Error: Could not find input fields for "${type}"`);
+        return;
+    }
+
+    const text = textInput.value;
+    const start_date = startDateInput.value;
+    const end_date = endDateInput.value;
+
+    if (!text || !start_date || !end_date) {
+        alert("Please fill in all fields!");
+        return;
+    }
+
+    fetch("../backend/announcements_notices.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({ type, text, start_date, end_date })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Server Response:", data); // Debugging
+
+        if (data.error) {
+            alert(`Error: ${data.error}`);
+            return;
+        }
+
+        alert("Added successfully!");
+        document.getElementById(type + "-form").reset();
+        loadItems(type, listId);
+    })
+    .catch(error => console.error("Error adding item:", error));
+}
+function loadAdmissions() {
+    fetch("../backend/get_admissions.php") // Adjust path if needed
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.getElementById("admissions-list");
+            tableBody.innerHTML = ""; // Clear previous data
+
+            if (data.error) {
+                tableBody.innerHTML = `<tr><td colspan="5" style="color:red;">${data.error}</td></tr>`;
+                return;
+            }
+
+            if (!Array.isArray(data) || data.length === 0) {
+                tableBody.innerHTML = "<tr><td colspan='5'>No admissions found.</td></tr>";
+                return;
+            }
+
+            data.forEach(item => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.student_name}</td>
+                    <td>${item.grade_applied}</td>
+                    <td>${item.parent_name}</td>
+                    <td>${item.parent_contact}</td>
+                    <td>${item.admission_status}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error("Error loading admissions:", error));
+}
+
+// Load admissions data when the page loads
+document.addEventListener("DOMContentLoaded", loadAdmissions);
+
+
+// ✅ Fix Section Switching
+function showSection(sectionId) {
+    document.querySelectorAll(".content-section").forEach(section => section.classList.add("hidden"));
+    document.getElementById(sectionId).classList.remove("hidden");
+}
+
+// ✅ Fix Logout Function
+function logout() {
+    window.location.href = "index.html";
+}
+
+
+</script>
+
+
+
+</html>
